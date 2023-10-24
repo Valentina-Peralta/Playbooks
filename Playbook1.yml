@@ -1,29 +1,24 @@
----
 - name: Instalar Python, Django, pip3, boto3 y Git
-  hosts: your_target_server  # Reemplaza "your_target_server" con el nombre de tu servidor o grupo de servidores
-  become: yes  # Para ejecutar comandos como superusuario (sudo)
+  hosts: servers  # Nombre del grupo de servidores a los que se aplicarán las tareas
+  become: yes  # Indica que las tareas se ejecutarán como superusuario (sudo)
 
   tasks:
-    - name: Actualizar lista de paquetes
-      apt:
-        update_cache: yes
-      when: ansible_os_family == "Debian"  # Para sistemas basados en Debian como Ubuntu
-
     - name: Instalar Python 3 y pip3
-      package:
-        name: 
-          - python3
-          - python3-pip
-      when: ansible_os_family == "Debian"  # Ajusta según el sistema operativo (puedes usar "RedHat" o "Fedora" para sistemas Red Hat)
+      yum:  # Utiliza el módulo "yum" para gestionar paquetes en sistemas CentOS
+        name:
+          - python3  # Lista de paquetes a instalar, en este caso Python 3
+          - python3-pip  # También instalamos pip3
+      when: ansible_distribution == "CentOS"  # Condición para ejecutar esta tarea solo en sistemas CentOS
 
     - name: Instalar Git
-      package:
-        name: git
-      when: ansible_os_family == "Debian"  # Ajusta según el sistema operativo
+      package:  # Utiliza el módulo "package" para gestionar paquetes
+        name: git  # Instala el paquete "git"
+      when: ansible_distribution == "CentOS"  # Condición para ejecutar esta tarea solo en sistemas CentOS
 
     - name: Instalar Django y boto3 con pip3
-      pip:
-        name:
-          - Django
-          - boto3
-      become: yes
+      pip:  # Utiliza el módulo "pip" para instalar paquetes de Python
+       executable: /usr/bin/pip3  # Ruta al ejecutable de pip3 en el sistema
+       name:
+          - Django  # Instala el paquete Django
+          - boto3  # Instala el paquete boto3
+      become: yes  # Ejecuta la tarea como superusuario (sudo)
