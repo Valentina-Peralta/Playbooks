@@ -6,8 +6,6 @@ Este repositorio contiene una colección de playbooks de Ansible destinados a au
 
 El primer playbook de esta colección tiene como objetivo automatizar la instalación de varios componentes esenciales en un servidor CentOS 7. Los componentes que se instalan incluyen Python 3, pip3, Django, boto3 y Git.
 
-### Componentes Instalados
-
 - **Python 3 y pip3**: Se instala Python 3, que es necesario para muchas aplicaciones y herramientas en Python. También se instala pip3, que es el administrador de paquetes de Python 3.
 
 - **Git**: Git es un sistema de control de versiones ampliamente utilizado para gestionar el código fuente y colaborar en proyectos de desarrollo de software.
@@ -16,7 +14,7 @@ El primer playbook de esta colección tiene como objetivo automatizar la instala
 
 - **boto3**: Boto3 es la biblioteca de Python de AWS (Amazon Web Services) que se utiliza para interactuar con los servicios de AWS desde aplicaciones Python.
 
-### Requisitos
+#### Requisitos
 
 Para utilizar este playbook y otros playbooks de esta colección, necesitas:
 
@@ -24,12 +22,3 @@ Para utilizar este playbook y otros playbooks de esta colección, necesitas:
 - Ansible instalado en tu máquina local desde la que ejecutarás los playbooks.
 - `setuptools` instalado en tus servidores CentOS antes de ejecutar los playbooks, ya que muchos paquetes de Python, como `boto3` y `Django`, dependen de él.
 
-
-### Uso
-
-1. Asegúrate de que tu servidor CentOS 7 esté configurado en el inventario de Ansible.
-2. Modifica los playbooks si es necesario (por ejemplo, si deseas agregar más tareas).
-3. Ejecuta un playbook con el siguiente comando:
-
-   ```shell
-   ansible-playbook playbook1.yml
