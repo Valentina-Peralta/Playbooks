@@ -22,3 +22,21 @@ Para utilizar este playbook y otros playbooks de esta colección, necesitas:
 - Ansible instalado en tu máquina local desde la que ejecutarás los playbooks.
 - `setuptools` instalado en tus servidores CentOS antes de ejecutar los playbooks, ya que muchos paquetes de Python, como `boto3` y `Django`, dependen de él.
 
+## Playbook2: Configuración de Apache HTTPD
+
+El segundo playbook en esta colección se enfoca en automatizar la configuración de un servidor Apache HTTPD en tus servidores. Los pasos que realiza este playbook incluyen:
+
+- Instalación de Apache HTTPD en el servidor.
+- Apertura de los puertos 80 (HTTP) y 443 (HTTPS) en el firewall.
+- Recarga de la configuración del firewall.
+- Inicio de Apache HTTPD.
+- Verificación del estado de Apache HTTPD.
+
+Este playbook es útil para establecer rápidamente un servidor web con Apache HTTPD y asegurarte de que los puertos necesarios estén abiertos y el servicio esté en funcionamiento.
+
+#### Requisitos
+
+Para utilizar este playbook, necesitas:
+
+- Un servidor CentOS 7 con acceso SSH.
+- Ansible instalado en tu máquina local desde la que ejecutarás los playbooks.
