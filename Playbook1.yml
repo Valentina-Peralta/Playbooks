@@ -1,0 +1,29 @@
+---
+- name: Instalar Python, Django, pip3, boto3 y Git
+  hosts: your_target_server  # Reemplaza "your_target_server" con el nombre de tu servidor o grupo de servidores
+  become: yes  # Para ejecutar comandos como superusuario (sudo)
+
+  tasks:
+    - name: Actualizar lista de paquetes
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "Debian"  # Para sistemas basados en Debian como Ubuntu
+
+    - name: Instalar Python 3 y pip3
+      package:
+        name: 
+          - python3
+          - python3-pip
+      when: ansible_os_family == "Debian"  # Ajusta según el sistema operativo (puedes usar "RedHat" o "Fedora" para sistemas Red Hat)
+
+    - name: Instalar Git
+      package:
+        name: git
+      when: ansible_os_family == "Debian"  # Ajusta según el sistema operativo
+
+    - name: Instalar Django y boto3 con pip3
+      pip:
+        name:
+          - Django
+          - boto3
+      become: yes
