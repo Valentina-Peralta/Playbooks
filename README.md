@@ -22,6 +22,8 @@ Para utilizar este playbook y otros playbooks de esta colección, necesitas:
 
 - Un servidor CentOS 7 con acceso SSH.
 - Ansible instalado en tu máquina local desde la que ejecutarás los playbooks.
+- `setuptools` instalado en tus servidores CentOS antes de ejecutar los playbooks, ya que muchos paquetes de Python, como `boto3` y `Django`, dependen de él.
+
 
 ### Uso
 
