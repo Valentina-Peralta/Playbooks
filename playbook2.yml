@@ -1,0 +1,53 @@
+- name: Configuración de Apache HTTPD  # Nombre descriptivo del playbook
+  hosts: servers  # Especifica los servidores o grupo de servidores donde se ejecutará
+  become: yes  # Permite ejecutar comandos como superusuario (sudo)
+
+  tasks:
+    - name: Instalar Apache HTTPD  # Nombre descriptivo de la tarea
+      yum:
+        name: httpd  # Nombre del paquete que se instalará
+        state: present  # Asegura que el paquete esté instalado
+      tags:
+        - httpd  # Etiqueta para organizar las tareas
+
+    - name: Abrir el puerto 80 (HTTP) en el firewall
+      firewalld:
+        service: http  # Nombre del servicio a habilitar en el firewall
+        permanent: yes  # Hace que el cambio sea permanente
+        state: enabled  # Habilita el servicio en el firewall
+      tags:
+        - firewall  # Etiqueta para organizar las tareas
+
+    - name: Abrir el puerto 443 (HTTPS) en el firewall
+      firewalld:
+        service: https  # Nombre del servicio HTTPS a habilitar
+        permanent: yes
+        state: enabled
+      tags:
+        - firewall
+
+    - name: Recargar la configuración del firewall
+      command: firewall-cmd --reload  # Ejecuta un comando para recargar la configuración del firewall
+      tags:
+        - firewall
+
+    - name: Iniciar Apache HTTPD
+      service:
+        name: httpd  # Nombre del servicio a iniciar (Apache HTTPD)
+        state: started  # Indica que el servicio debe estar en estado "started" (iniciado)
+      tags:
+        - httpd
+
+    - name: Verificar el estado de Apache HTTPD
+      service:
+        name: httpd
+        state: started
+      register: httpd_status  # Registra el estado del servicio en una variable llamada httpd_status
+      tags:
+        - httpd
+
+    - name: Mostrar estado de Apache HTTPD
+      debug:
+        var: httpd_status  # Muestra en pantalla el valor de la variable httpd_status
+      tags:
+        - httpd
