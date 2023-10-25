@@ -13,6 +13,11 @@
         name: nginx
         state: present
 
+    - name: Iniciar Nginx
+      service:
+        name: nginx
+        state: started
+
     - name: Crear archivo index.html.j2
       template:
         src: templates/index.html.j2
@@ -35,10 +40,10 @@
 
     - name: Recargar la configuración del firewall
       command: firewall-cmd --reload
-
-    - name: Iniciar Nginx
+      
+    - name: Reiniciar Nginx
       service:
         name: nginx
-        state: started
+        state: restarted
 
-~                            
+~    
