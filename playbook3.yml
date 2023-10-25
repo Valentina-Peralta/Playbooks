@@ -1,4 +1,3 @@
----
 - name: Configuración de Nginx
   hosts: server1
   become: yes
@@ -19,11 +18,20 @@
         src: templates/index.html.j2
         dest: /usr/share/nginx/html/index.html
 
-    - name: Abrir puerto 8080 en el firewall
+    - name: start firewalld
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+      become: yes
+
+    - name: enable 8080
       firewalld:
-        service: http
-        permanent: yes
+        zone: public
+        port: 8080/tcp
+        permanent: true
         state: enabled
+      become: yes
 
     - name: Recargar la configuración del firewall
       command: firewall-cmd --reload
@@ -32,3 +40,5 @@
       service:
         name: nginx
         state: started
+
+~                            

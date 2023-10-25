@@ -1,0 +1,15 @@
+---
+- name: Instalar SQLite3 y paquete de desarrollo
+  hosts: servers
+  become: yes  # Para ejecutar comandos como superusuario (sudo)
+
+  tasks:
+    - name: Instalar SQLite3
+      package:
+        name: sqlite
+        state: present
+
+    - name: Instalar paquete de desarrollo de SQLite3
+      package:
+        name: sqlite-devel
+        state: present
