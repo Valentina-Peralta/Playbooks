@@ -45,7 +45,7 @@ Para utilizar este playbook, necesitas:
 Este playbook de Ansible automatiza la configuración de un servidor web Nginx en un sistema CentOS 7. Asegura que Nginx esté instalado, que el archivo `index.html.j2` se haya creado y configurado correctamente, y que el puerto 8080 esté abierto en el firewall.
 
 ### Instrucciones
-Crear el Archivo `index.html.j2`
+1. Crear el Archivo `index.html.j2`
 
 Debes crear un archivo llamado `index.html.j2` en  `templates`. Aquí hay un ejemplo de cómo podría ser el contenido del archivo `index.html.j2`:
 
@@ -61,6 +61,16 @@ Debes crear un archivo llamado `index.html.j2` en  `templates`. Aquí hay un eje
 </body>
 </html>
 ```
+2. Modificar la Configuración de Nginx para Escuchar en el Puerto 8080
+   Para personalizar la configuración de Nginx y hacer que escuche en el puerto 8080, abre el archivo de configuración de Nginx y dentro del bloque server modificalo para que se vea así:
+   ```
+   server {
+    listen       8080;
+    listen       [::]:8080;
+    server_name  _;
+    root         /usr/share/nginx/html;
+    }
+   ```
 
 ## Playbook4: Instalación de SQLite3 y su paquete de desarrollo
 Este playbook de Ansible está diseñado para instalar SQLite3 y su paquete de desarrollo en un servidor CentOS 7. SQLite es una base de datos ligera y ampliamente utilizada en aplicaciones y sistemas embebidos. La instalación del paquete de desarrollo es esencial para compilar aplicaciones que utilizan SQLite.
