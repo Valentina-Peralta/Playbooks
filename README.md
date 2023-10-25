@@ -57,6 +57,10 @@ Debes crear un archivo llamado `index.html.j2` en  `templates`. Aquí hay un eje
 </head>
 <body>
     <h1>Bienvenido a Ansible</h1>
-    <p>Mi servidor es: {{ ansible_default_ipv4.address }}</p>
+    <p>Mi servidor es: {{ ansible_host }}</p>
 </body>
 </html>
+```
+
+## Playbook4: Instalación de SQLite3 y su paquete de desarrollo
+Este playbook de Ansible está diseñado para instalar SQLite3 y su paquete de desarrollo en un servidor CentOS 7. SQLite es una base de datos ligera y ampliamente utilizada en aplicaciones y sistemas embebidos. La instalación del paquete de desarrollo es esencial para compilar aplicaciones que utilizan SQLite.
