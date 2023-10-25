@@ -1,0 +1,34 @@
+---
+- name: Configuración de Nginx
+  hosts: server1
+  become: yes
+
+  tasks:
+    - name: Instalar epel-release
+      yum:
+        name: epel-release
+        state: present
+
+    - name: Instalar nginx
+      yum:
+        name: nginx
+        state: present
+
+    - name: Crear archivo index.html.j2
+      template:
+        src: templates/index.html.j2
+        dest: /usr/share/nginx/html/index.html
+
+    - name: Abrir puerto 8080 en el firewall
+      firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+
+    - name: Recargar la configuración del firewall
+      command: firewall-cmd --reload
+
+    - name: Iniciar Nginx
+      service:
+        name: nginx
+        state: started
