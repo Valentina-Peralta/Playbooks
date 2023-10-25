@@ -40,3 +40,23 @@ Para utilizar este playbook, necesitas:
 
 - Un servidor CentOS 7 con acceso SSH.
 - Ansible instalado en tu máquina local desde la que ejecutarás los playbooks.
+
+## Playbook3: Configuración de Nginx
+Este playbook de Ansible automatiza la configuración de un servidor web Nginx en un sistema CentOS 7. Asegura que Nginx esté instalado, que el archivo `index.html.j2` se haya creado y configurado correctamente, y que el puerto 8080 esté abierto en el firewall.
+
+### Instrucciones
+Crear el Archivo `index.html.j2`
+
+Debes crear un archivo llamado `index.html.j2` en  `templates`. Aquí hay un ejemplo de cómo podría ser el contenido del archivo `index.html.j2`:
+
+```jinja2
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bienvenido a Ansible</title>
+</head>
+<body>
+    <h1>Bienvenido a Ansible</h1>
+    <p>Mi servidor es: {{ ansible_default_ipv4.address }}</p>
+</body>
+</html>
