@@ -1,0 +1,104 @@
+---
+- name: Install Haproxy
+  hosts: slave2
+  tasks:
+    - name: Install Haproxy
+      yum:
+        name: haproxy
+        state: present
+
+- name: Install Tomcat
+  hosts: slave3
+  tasks:
+    - name: Install Tomcat
+      yum:
+        name: tomcat
+        state: present
+    - name: Copy WAR to /usr/share/tomcat/webapps
+      copy:
+        src: snoop.war
+        dest: /usr/share/tomcat/webapps
+
+- name: Install Admin Packages
+  hosts: slave3
+  tasks:
+    - name: Install tomcat-webapps & tomcat-admin-webapps
+      yum:
+        state: present
+        name:
+          - tomcat-webapps
+          - tomcat-admin-webapps
+
+- name: Copy tomcat-users
+  hosts: slave3
+  tasks:
+    - name: Copy tomcat-users to /usr/share/tomcat/conf/
+      copy:
+        src: templates/tomcat-users.xml
+        dest: /usr/share/tomcat/conf/tomcat-user.xml
+      vars:
+        admin_password: "password"
+        admin_username: "admin"
+
+- name: Opening ports (slave2=
+  hosts: slave3
+  tasks:
+    - name: start firewalld
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+      become: yes
+
+    - name: enable 8080
+      firewalld:
+        zone: public
+        port: 8080/tcp
+        permanent: true
+        state: enabled
+      become: yes
+
+    - name: Recargar la configuración del firewall
+      command: firewall-cmd --reload
+
+- name: Opening ports (slave1)
+  hosts: slave2
+  tasks:
+    - name: start firewalld
+      service:
+        name: firewalld
+        state: started
+        enabled: yes
+      become: yes
+
+    - name: enable 80
+      firewalld:
+        zone: public
+        port: 80/tcp
+        permanent: true
+        state: enabled
+      become: yes
+
+    - name: Recargar la configuración del firewall
+      command: firewall-cmd --reload
+
+- name: Ensure Tomcat service is running
+  hosts: slave3
+  tasks:
+    - name: Start tomcat
+      service:
+        name: tomcat
+        state: started
+
+- name: Configure haproxy
+  hosts: slave2
+  tasks:
+    - name: Move config file
+      copy:
+        src: haproxy.cfg
+        dest: /etc/haproxy/haproxy.cfg
+
+    - name: Start haproxy
+      service:
+        name: haproxy
+        state: started

@@ -1,5 +1,5 @@
 - name: Configuración de Nginx
-  hosts: server1
+  hosts: slave3
   become: yes
 
   tasks:
@@ -40,7 +40,7 @@
 
     - name: Recargar la configuración del firewall
       command: firewall-cmd --reload
-      
+
     - name: Reiniciar Nginx
       service:
         name: nginx
