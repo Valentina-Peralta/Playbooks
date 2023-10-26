@@ -75,3 +75,14 @@ Debes crear un archivo llamado `index.html.j2` en  `templates`. Aquí hay un eje
 
 ## Playbook4: Instalación de SQLite3 y su paquete de desarrollo
 Este playbook de Ansible está diseñado para instalar SQLite3 y su paquete de desarrollo en un servidor CentOS 7. SQLite es una base de datos ligera y ampliamente utilizada en aplicaciones y sistemas embebidos. La instalación del paquete de desarrollo es esencial para compilar aplicaciones que utilizan SQLite.
+
+## Playbook5: Despliegue de Haproxy y Tomcat con Configuración de Firewall
+Este playbook de Ansible está diseñado para automatizar la instalación y configuración de Haproxy y Tomcat en servidores específicos, junto con la configuración de reglas de firewall para permitir el tráfico necesario.
+
+Para ejecutar este playbook, debes tener:
+
+- Servidores con sistema operativo CentOS 7.
+- Acceso SSH a los servidores desde la máquina donde se ejecutará Ansible.
+- Ansible instalado en la máquina desde la que se ejecutarán los playbooks.
+- El archivo "snoop.war" debe estar presente en el mismo directorio que el playbook.
+
